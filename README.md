@@ -10,7 +10,7 @@ A busy pet owner needs help staying consistent with pet care. They want an assis
 - Consider constraints (time available, priority, owner preferences)
 - Produce a daily plan and explain why it chose that plan
 
-Your job is to design the system first (UML), then implement the logic in Python, then connect it to the Streamlit UI.
+Your job is to design the system firsst (UML), then implement the logic in Python, then connect it to the Streamlit UI.
 
 ## What you will build
 
@@ -46,12 +46,21 @@ pip install -r requirements.txt
 
 Paste a sample of your app's CLI or Streamlit output here so a reader can see what a generated plan looks like:
 
-```
-# e.g.:
-# Daily plan for Biscuit (Golden Retriever):
-#   08:00 — Morning walk (30 min) [priority: high]
-#   09:00 — Feeding (10 min) [priority: high]
-#   ...
+```text
+Daily Plan for Mochi (dog)
+
+Owner: Jordan
+Available Time: 120 minutes
+Schedule Start Time: 08:00 AM
+
+08:00 AM — Feeding (10 min) [priority: high]
+08:10 AM — Grooming (30 min) [priority: low]
+
+Why These Tasks?
+
+Feeding: Selected because this task has high priority and fits within the available time.
+
+Grooming: Selected because this task has low priority and fits within the available time.
 ```
 
 ## 🧪 Testing PawPal+
@@ -66,8 +75,12 @@ pytest --cov
 
 Sample test output:
 
-```
-# Paste your pytest output here
+```text
+tests/test_scheduler.py::test_high_priority_first PASSED
+tests/test_scheduler.py::test_time_limit PASSED
+tests/test_scheduler.py::test_empty_tasks PASSED
+
+================ 3 passed in 0.78s ================
 ```
 
 ## 📐 Smarter Scheduling
@@ -76,19 +89,18 @@ Sample test output:
 
 | Feature | Method(s) | Notes |
 |---------|-----------|-------|
-| Task sorting | | e.g., by priority, duration |
-| Filtering | | e.g., skip tasks if time runs out |
-| Conflict handling | | e.g., overlapping time slots |
-| Recurring tasks | | e.g., daily vs. weekly |
+| Task sorting | `generate_schedule()` | Sorts tasks by priority (high, medium, low) and duration. |
+| Filtering | `generate_schedule()` | Skips tasks that exceed the available time. |
+| Conflict handling | `generate_schedule()` | Schedules tasks sequentially to avoid overlapping time slots. |
+| Recurring tasks | Not implemented | Daily and weekly recurring tasks can be added in the future. |
 
 ## 📸 Demo Walkthrough
 
 Describe your app in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
-
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
+1. Open the PawPal+ application using Streamlit. The homepage displays the title and introduction to the pet care scheduling assistant.
+2. Enter the owner's information, including name, available time, and schedule start time.
+3. Enter the pet's information, including pet name and species.
+4. Add pet care tasks such as feeding, walking, and grooming. Enter the duration and priority for each task and click "Add Task."
+5. Click "Generate Schedule" to create a daily pet care plan. The application displays the tasks with their start times, end times, durations, and priorities.
+6. Review the "Why These Tasks?" section to understand why each task was selected. Tasks that cannot fit within the available time are shown as skipped.
